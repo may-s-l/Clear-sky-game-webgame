@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="he">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>clear sky game </title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <script src="sky.js" defer></script>
+  <link href="hw2.css" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <img src="clear sky icon.png" alt="לוגו האתר" class="logo">
+    <h1>clear sky game </h1>
+  </header>
+
+  <nav>
+    <button onclick="navigateTo('welcome')">בית</button>
+    <button onclick="navigateTo('register')">הרשמה</button>
+    <button onclick="navigateTo('login')">התחברות</button>
+    <button onclick="document.getElementById('aboutDialog').showModal()">אודות</button>
+
+  </nav>
+
+  <main>
+    <!-- Welcome Screen -->
+    <section id="welcome" class="screen active">
+      <h2>ברוכים הבאים!</h2>
+      <p>שם:מאי לוי | ת.ז: 207939059</p>
+      <a href="https://example.com" target="_blank">האתרים שלי</a>
+      <div class="btn-group">
+        <button onclick="navigateTo('register')">הרשמה</button>
+        <button onclick="navigateTo('login')">התחברות</button>
+      </div>
+    </section>
+
+    <!-- Register Screen -->
+    <section id="register" class="screen">
+      <h2>הרשמה</h2>
+      <form id="registerForm">
+        <input type="text" id="regUsername" placeholder="שם משתמש" required>
+        <input type="password" id="regPassword" placeholder="סיסמה" required>
+        <input type="password" id="regConfirm" placeholder="אימות סיסמה" required>
+        <input type="text" id="firstName" placeholder="שם פרטי" required>
+        <input type="text" id="lastName" placeholder="שם משפחה" required>
+        <input type="email" id="email" placeholder="אימייל" required>
+        <label>תאריך לידה:</label>
+        <div class="birthdate">
+          <select id="day"></select>
+          <select id="month"></select>
+          <select id="year"></select>
+        </div>
+        <button type="submit">הרשמה</button>
+      </form>
+    </section>
+
+    <!-- Login Screen -->
+    <section id="login" class="screen">
+      <h2>התחברות</h2>
+      <form id="loginForm">
+        <input type="text" id="loginUsername" placeholder="שם משתמש" required>
+        <input type="password" id="loginPassword" placeholder="סיסמה" required>
+        <button type="submit">התחבר</button>
+      </form>
+    </section>
+
+    <!-- Config Screen -->
+    <section id="config" class="screen">
+      <h2>הגדרות משחק</h2>
+      <label>בחר מקש ירי:</label>
+      <input type="text" id="shootKey" maxlength="1" placeholder="למשל: רווח או אות">
+      <label>בחר זמן משחק (בדקות, מינימום 2):</label>
+      <input type="number" id="gameTime" min="2" value="2">
+      <label>צבע חללית:</label>
+      <input type="color" id="shipColor">
+      <button onclick="startGame()">התחל משחק</button>
+    </section>
+
+    <!-- Game Screen -->
+    <section id="game" class="screen">
+      <h2>clear sky game</h2>
+      <div id="gameHUD">
+        <span id="score">נקודות: 0</span>
+        <span id="lives">חיים: 3</span>
+        <span id="timer">זמן: 00:00</span>
+      </div>
+      <canvas id="gameCanvas" width="800" height="600"></canvas>
+      <button onclick="newGame()">משחק חדש</button>
+    </section>
+
+    <!-- Results Screen -->
+    <section id="results" class="screen">
+      <h2>סיום המשחק</h2>
+      <p id="resultMessage"></p>
+      <h3>טבלת שיאים אישית:</h3>
+      <ul id="scoreHistory"></ul>
+      <button onclick="newGame()">משחק חדש</button>
+      <button onclick="navigateTo('welcome')">חזרה לבית</button>
+    </section>
+
+    <!-- contact Screen -->
+    <section id="contactScreen" class="screen">
+        <h2>צור קשר</h2>
+        <form action="https://formspree.io/f/mwpokqww" method="POST">
+          <label for="contactName">שם:</label>
+          <input type="text" id="contactName" name="name" required>
+      
+          <label for="contactEmail">אימייל:</label>
+          <input type="email" id="contactEmail" name="email" required>
+      
+          <label for="contactMessage">הודעה:</label>
+          <textarea id="contactMessage" name="message" rows="5" required></textarea>
+      
+          <button type="submit">שלח</button>
+        </form>
+      </section>
+      
+      
+  </main>
+
+  <footer>
+    <p>
+      פותח על ידי מאי לוי →
+      <img src="contact us icon.jpeg" alt="לוגו יצירת קשר" class="logo" id="contactIcon">
+    </p>
+  </footer>
+
+  <dialog id="aboutDialog">
+    <div class="dialog-header">
+      <h2>אודות</h2>
+      <button class="close-btn" onclick="document.getElementById('aboutDialog').close()">✕</button>
+    </div>
+    
+    <div class="dialog-content">
+      <p>הוגש על ידי מאי לוי</p>
+      <p>מומש באמצעות HTML5, CSS3, JavaScript כולל canvas, dialog, validation ועוד.</p>
+      
+      <h3>הוראות המשחק:</h3>
+      <ul>
+        <li>השתמש במקשי החצים כדי להזיז את החללית של איירון מן</li>
+        <li>לחץ על המקש שבחרת כדי לירות</li>
+        <li>השמד את כל חלליות האויב (תאנוס) לפני סיום הזמן</li>
+        <li>יש לך 3 חיים - כל פגיעה של האויב מפחיתה חיים אחד</li>
+      </ul>
+      
+      <h3>מה מימשנו במשחק:</h3>
+      <ul>
+        <li>מערכת טיימר שמציגה את הזמן שנותר למשחק</li>
+        <li>דמויות מצוירות של איירון מן ותאנוס במקום צורות בסיסיות</li>
+        <li>אפשרות לבחור צבע לחללית של השחקן</li>
+        <li>מוסיקת רקע למשחק </li>
+        <li>אפקטים קוליים בזמן פגיעה ונצחון/הפסד</li>
+        <li>מערכת קושי מתגברת - האויבים הופכים מהירים יותר עם הזמן</li>
+      </ul>
+      
+      <h3>קשיים במהלך הפיתוח:</h3>
+      <ul>
+        <li>יצירת מערכת טיימר מדויקת שתציג את הזמן בצורה נכונה</li>
+        <li>טיפול בתנועת חצים שלא יגרמו לגלילת הדף</li>
+        <li>יצירת ציורי canvas מורכבים לדמויות</li>
+        <li>ניווט ושל המסכים</li>
+        <li> footer צירוף טופס יצירת קשר באיזור של</li>
+        <li>יצירת חלון הדאלוג בפתיחה עשה טיפה בעיות נפתח כאשר שמים בקונסול את הפקודה אבל לא כאשר שמים אותה בתוך הפונקציה בJS אז שמתי את הפקודה ב HTML</li>
+      </ul>
+    </div>
+    
+    <button class="close-btn-bottom" onclick="document.getElementById('aboutDialog').close()">סגור</button>
+  </dialog>
+</body>
+</html>
